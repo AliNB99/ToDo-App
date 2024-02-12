@@ -9,6 +9,8 @@ const filterBtn = document.querySelectorAll(".filter-todos");
 
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
 
+const e2p = (s) => s.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+
 const generateId = () => {
   return Math.round(
     Math.random() * Math.random() * Math.pow(10, 15)
@@ -33,7 +35,7 @@ const displayTodos = (data) => {
   todoBody.innerHTML = "";
 
   if (!todoList.length) {
-    todoBody.innerHTML = "<tr><td colspan='4'>Not Todo Found!</td></tr>";
+    todoBody.innerHTML = "<tr><td colspan='4'>هیچ عنوانی یافت نشد!!</td></tr>";
     return;
   }
 
@@ -41,14 +43,14 @@ const displayTodos = (data) => {
     todoBody.innerHTML += `
     <tr>
       <td>${todo.task}</td>
-      <td>${todo.date || "No Date"}</td>
-      <td>${todo.completed ? "completed" : "pending"}</td>
+      <td>${e2p(todo.date) || "بدون تاریخ"}</td>
+      <td>${todo.completed ? "تکمیل شده" : "در حال انجام"}</td>
       <td>
-        <button onclick="editHandler('${todo.id}')">Edit</button>
+        <button onclick="editHandler('${todo.id}')">ویرایش</button>
         <button onclick="toggleHandler('${todo.id}')">
-          ${todo.completed ? "Undo" : "Do"}
+          ${todo.completed ? "قبل" : "بعد"}
         </button>
-        <button onclick="deleteHandler('${todo.id}')">Delete</button>
+        <button onclick="deleteHandler('${todo.id}')">حذف</button>
       </td>
     </tr>`;
   });
@@ -74,9 +76,9 @@ const addHandler = () => {
     displayTodos();
     taskInput.value = "";
     dateInput.value = "";
-    showAlert("todo added successfully", "success");
+    showAlert("فعالیت با موفقیت اضافه شد", "success");
   } else {
-    showAlert("please enter a todo!", "error");
+    showAlert("لطفا فعالیت را وارد نمایید", "error");
   }
 };
 
@@ -85,9 +87,9 @@ const deleteAllHandler = () => {
     todos = [];
     saveLocalStorage();
     displayTodos();
-    showAlert("All todos cleared successfully", "success");
+    showAlert("همه فعالیت ها حذف گردید.", "success");
   } else {
-    showAlert("No todos to clear!", "error");
+    showAlert("هیچ فعالیتی جهت حذف کردن وجود ندارد.", "error");
   }
 };
 
@@ -96,7 +98,7 @@ const deleteHandler = (id) => {
   todos = newTodos;
   saveLocalStorage();
   displayTodos();
-  showAlert("todo deleted successfully", "success");
+  showAlert("حذف شد", "success");
 };
 
 const toggleHandler = (id) => {
@@ -104,7 +106,7 @@ const toggleHandler = (id) => {
   todo.completed = !todo.completed;
   saveLocalStorage();
   displayTodos();
-  showAlert("Todo status changed successfully", "success");
+  showAlert("وضعیت فعالیت تغییر کرد", "success");
 };
 
 const editHandler = (id) => {
@@ -113,7 +115,7 @@ const editHandler = (id) => {
   dateInput.value = todo.date;
   addBtn.style.display = "none";
   editBtn.style.display = "inline-block";
-  // editBtn.dataset.id = id;
+  editBtn.dataset.id = id;
 };
 
 const applyEditHandler = (event) => {
@@ -127,7 +129,7 @@ const applyEditHandler = (event) => {
   editBtn.style.display = "none";
   displayTodos();
   saveLocalStorage();
-  showAlert("todo edited successfully", "success");
+  showAlert("فعالیت با موفقیت ویرایش شد", "success");
 };
 
 const filterHandler = (event) => {

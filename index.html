@@ -1,27 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./style/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css"
+      rel="stylesheet"
+      type="text/css"
+    />
   </head>
   <body>
     <div class="container">
-      <h2>TODO APP</h2>
+      <h2>مدیریت فعالیت ها</h2>
       <div class="input-section">
-        <input id="task-input" type="text" placeholder="add todo ..." />
+        <input id="task-input" type="text" placeholder="عنوان فعالیت ..." />
         <input id="date-input" type="date" />
-        <button id="add-button">Add</button>
-        <button id="edit-button">Edit</button>
+        <button id="add-button">افزودن</button>
+        <button id="edit-button">ویرایش</button>
       </div>
       <div class="todos-operator">
         <div class="filter-buttons">
-          <button class="filter-todos btn-add" data-filter="all">all</button>
-          <button class="filter-todos" data-filter="pending">pending</button>
-          <button class="filter-todos" data-filter="completed">completed</button>
+          <button class="filter-todos btn-add" data-filter="all">همه</button>
+          <button class="filter-todos" data-filter="pending">
+            در حال انجام
+          </button>
+          <button class="filter-todos" data-filter="completed">
+            تکمیل شده
+          </button>
         </div>
-        <button id="delete-all-button">Delete All</button>
+        <button id="delete-all-button">حذف همه</button>
       </div>
     </div>
     <div id="alert-message"></div>
@@ -29,10 +38,10 @@
       <table>
         <thead>
           <tr>
-            <th>Task</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>عنوان</th>
+            <th>تاریخ</th>
+            <th>وضعیت</th>
+            <th>عملیات</th>
           </tr>
         </thead>
         <tbody></tbody>
